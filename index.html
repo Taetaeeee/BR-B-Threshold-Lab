@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1320" />
+  <meta name="description" content="T10 연구 논문에 기반한 로그인 실패 임계값 실험실. 탐지 누락률, 오탐률, 비용 가정을 함께 비교합니다." />
+  <title>Threshold Lab | 로그인 이상 탐지 실험실</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="Threshold Lab 맨 위로"><span class="brand-symbol" aria-hidden="true">⌁</span><span>THRESHOLD<span class="brand-light">LAB</span></span></a>
+      <nav aria-label="주요 메뉴" class="navlinks">
+        <a href="#research">연구 비교</a><a href="#simulator">탐지 실습</a><a href="#scenario">비용 분석</a>
+      </nav>
+      <span class="top-status"><span class="status-light" aria-hidden="true"></span> LOCAL · DEMO</span>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page" id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="eyebrow"><span class="tiny-box">T10 → BR-B</span> RESEARCH INTO PRACTICE <span class="eyebrow-line"></span> 2026.11</div>
+        <div class="hero-content">
+          <div>
+            <h1 id="hero-title">탐지를 강화하면,<br /><span class="gradient-text">정말 더 안전해질까?</span></h1>
+            <p class="hero-description">보안 담당자와 학습자가 로그인 실패 횟수의 <strong>탐지 누락·오탐 상충관계</strong>를 비교하고, 예시 로그에 탐지 규칙을 적용해 보는 연구 기반 시뮬레이터입니다.</p>
+            <div class="hero-actions"><a class="btn primary" href="#research">연구 결과 살펴보기 <span aria-hidden="true">↗</span></a><a class="btn ghost" href="#simulator">로그 탐지 실습 <span aria-hidden="true">→</span></a></div>
+          </div>
+          <aside class="hero-metric" aria-label="핵심 연구 발견">
+            <div class="metric-caption"><span>RESEARCH FINDING</span><span>01 / 03</span></div>
+            <div class="metric-key">6회 → 5회</div><div class="metric-subtitle">임계값을 낮췄을 때</div>
+            <div class="hero-stats"><div><span>공격 누락률</span><strong class="good">−12.67<small>%p</small></strong></div><div><span>정상 오탐률</span><strong class="bad">+14.43<small>%p</small></strong></div></div>
+            <div class="metric-foot">오탐 증가 허용폭 5%p를 초과하여 <b>연구 가설 미지지</b></div>
+          </aside>
+        </div>
+        <div class="research-citation"><span>기반 논문</span><strong>「로그인 실패 횟수 임계값이 이상 접속 탐지 성능에 미치는 영향」</strong><span class="citation-tag">합성 데이터 기반</span></div>
+      </section>
+      <div class="steps" aria-label="사용 방법"><div><span>01</span><p><b>기준 선택</b><small>4~10회 탐지 성능 비교</small></p></div><div><span>02</span><p><b>로그 실습</b><small>예시 이벤트로 경보 판정</small></p></div><div><span>03</span><p><b>비용 분석</b><small>가정별 오탐·미탐 부담 비교</small></p></div></div>
+      <section id="research" class="section-block" aria-labelledby="research-title">
+        <div class="section-heading"><div><p class="section-index">01 / RESEARCH EXPLORER</p><h2 id="research-title">임계값에 따라 무엇이 달라질까?</h2><p class="section-subtitle">논문 결과표에 기재된 1,000개 구간의 실측 집계값(합성 데이터 실험)을 사용합니다.</p></div><span class="badge muted">T10 PAPER · TABLE 1 &amp; 2</span></div>
+        <div class="panel control-panel">
+          <div class="control-top"><div><span class="input-title">연구 자료 선택</span><div class="segmented" role="group" aria-label="분석 데이터 선택"><button type="button" id="mode-primary" aria-pressed="true">본 실험</button><button type="button" id="mode-stress" aria-pressed="false">사후 분포 변경</button></div></div><div class="threshold-head"><label for="threshold"><span class="input-title">탐지 기준 선택</span></label><span id="threshold-big" class="threshold-display">6 <small>회 이상</small></span></div></div>
+          <div class="slider-row"><span>민감한 탐지</span><input id="threshold" type="range" min="4" max="10" step="1" value="6" aria-describedby="threshold-help" /><span>보수적인 탐지</span></div>
+          <div class="slider-ticks" aria-hidden="true"><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+          <p id="threshold-help" class="context-text">동일한 IP의 UTC 5분 구간에서 로그인 실패가 선택한 횟수 이상이면 경보로 판정합니다.</p>
+          <p id="mode-description" class="context-text mode-description"></p>
+        </div>
+        <div class="stats-grid" id="main-kpis" aria-live="polite"><div class="stat-card"><span>탐지 누락률 (FNR)</span><strong id="fnr-value">—</strong><small id="fnr-delta">—</small></div><div class="stat-card"><span>정상 오탐률 (FPR)</span><strong id="fpr-value">—</strong><small id="fpr-delta">—</small></div><div class="stat-card"><span>경보 구간</span><strong id="alerts-value">—</strong><small id="alerts-detail">—</small></div><div class="stat-card"><span>F1 점수</span><strong id="f1-value">—</strong><small>정밀도와 재현율의 조화평균</small></div></div>
+        <div class="two-col">
+          <article class="panel chart-panel"><div class="panel-head"><h3>임계값별 누락률과 오탐률</h3><span class="legend"><i class="legend-blue"></i> 누락률 <i class="legend-amber"></i> 오탐률</span></div><div id="tradeoff-chart" class="tradeoff-chart" aria-label="4~10회별 누락률과 오탐률 막대그래프"></div><p class="micro-note">막대는 선택한 연구 조건에서 발생한 비율입니다. 수치는 아래 표에서도 확인할 수 있습니다.</p></article>
+          <article class="panel matrix-panel"><div class="panel-head"><h3>혼동행렬</h3><span class="label-small">선택 기준: <b id="matrix-threshold">6회</b></span></div><div class="matrix-grid" aria-label="혼동행렬"><div class="matrix-axis"></div><div class="matrix-col">정답: 공격</div><div class="matrix-col">정답: 정상</div><div class="matrix-axis">경보 발생</div><div class="matrix-cell tp"><span>TP · 정확한 경보</span><strong id="tp">—</strong></div><div class="matrix-cell fp"><span>FP · 정상 오탐</span><strong id="fp">—</strong></div><div class="matrix-axis">경보 없음</div><div class="matrix-cell fn"><span>FN · 공격 누락</span><strong id="fn">—</strong></div><div class="matrix-cell tn"><span>TN · 정상 통과</span><strong id="tn">—</strong></div></div><p class="micro-note">정답 라벨은 연구의 평가용으로만 사용했습니다. 탐지 규칙은 실패 횟수만으로 판정합니다.</p></article>
+        </div>
+        <div class="panel results-panel"><div class="panel-head"><h3>연구 결과 전체 보기</h3><span class="label-small">단위: 구간 / %</span></div><div class="table-scroll"><table><caption class="visually-hidden">임계값 4에서 10회까지 논문 집계 결과</caption><thead><tr><th scope="col">임계값</th><th scope="col">TP</th><th scope="col">FN</th><th scope="col">FP</th><th scope="col">TN</th><th scope="col">FNR</th><th scope="col">FPR</th><th scope="col">F1</th></tr></thead><tbody id="research-table-body"></tbody></table></div></div>
+        <div class="insight-box"><span class="insight-icon" aria-hidden="true">!</span><div><strong>사전 가설은 지지되지 않았습니다.</strong><p id="hypothesis-explanation">6회에서 5회로 낮추면 공격 누락은 줄지만 정상 오탐은 더 크게 증가했습니다.</p><p class="insight-note">중요: 본 실험에서 7회 기준의 FPR 0%는 정상 구간의 실패 횟수를 6회 이하로 생성한 결과입니다. 사후 분포 변경 실험에서 7회 FPR은 38.86%였습니다. 어느 값도 실제 운영 환경의 최적 기준으로 일반화할 수 없습니다.</p></div></div>
+      </section>
+      <section id="simulator" class="section-block" aria-labelledby="simulator-title"><div class="section-heading"><div><p class="section-index">02 / DETECTION SANDBOX</p><h2 id="simulator-title">예시 로그로 직접 탐지해 보기</h2><p class="section-subtitle">입력한 이벤트를 동일 IP·UTC 5분 구간으로 집계하고 임계값을 적용합니다. 입력은 브라우저 내에서만 처리됩니다.</p></div><span class="badge aqua">LOCAL ONLY</span></div>
+        <div class="demo-warning" role="note">실제 운영 인증 로그·실명·개인정보를 붙여 넣지 마세요. 기본 예시는 가상의 IP와 사건으로 생성한 <b>별도 데모</b>이며, 논문 원시 CSV를 복제한 자료가 아닙니다.</div>
+        <div class="two-col simulator-layout"><div class="panel editor-panel"><div class="panel-head"><h3>인증 이벤트 CSV</h3><button type="button" id="load-demo" class="text-button">↺ 예시로 초기화</button></div><label class="small-label" for="csv-input">형식: timestamp_utc,ip,result,label</label><textarea id="csv-input" spellcheck="false" aria-describedby="csv-help" rows="13"></textarea><p id="csv-help" class="micro-note">시각: YYYY-MM-DDTHH:mm:ssZ / 결과: failure·success / 평가용 정답: attack·normal. 최대 3,000행을 분석합니다.</p><div class="editor-actions"><button type="button" id="run-demo" class="btn primary">탐지 실행 <span aria-hidden="true">▶</span></button><span id="parse-status" class="label-small" role="status"></span></div></div>
+        <div class="panel simulator-output"><div class="panel-head"><h3>실행 결과</h3><span id="simulation-badge" class="badge muted">대기</span></div><div class="sim-kpis"><div><span>평가한 5분 구간</span><b id="sim-windows">—</b></div><div><span>발생한 경보</span><b id="sim-alerts">—</b></div><div><span>공격 누락</span><b id="sim-missed">—</b></div><div><span>정상 오탐</span><b id="sim-false">—</b></div></div><p class="small-label">선택된 <b id="demo-threshold">6회</b> 기준 판정 결과</p><div id="sim-errors" class="errors" aria-live="polite"></div><div class="table-scroll sim-table-wrap"><table><thead><tr><th scope="col">IP · UTC 구간</th><th scope="col">실패</th><th scope="col">정답</th><th scope="col">판정</th></tr></thead><tbody id="sim-table-body"></tbody></table></div><p class="micro-note" id="demo-note">합성 데모 결과는 논문에서 보고한 1,000개 구간의 성능을 대신하지 않습니다.</p></div></div>
+      </section>
+      <section id="scenario" class="section-block" aria-labelledby="scenario-title"><div class="section-heading"><div><p class="section-index">03 / DECISION TRADE-OFF</p><h2 id="scenario-title">오탐과 미탐의 비용이 다르다면?</h2><p class="section-subtitle">논문의 가정 기반 민감도 분석을 재계산합니다. 실제 기업의 사고 비용이나 발생률을 측정한 값은 아닙니다.</p></div></div>
+        <div class="two-col scenario-layout"><div class="panel scenario-config"><div class="panel-head"><h3>운영 조건 가정</h3><span class="badge muted">가정값 · 시뮬레이션</span></div><div class="setting-row"><label for="prevalence">가정한 공격 구간 비율 <strong id="prevalence-value">5%</strong></label><input id="prevalence" type="range" min="1" max="50" step="1" value="5" /><div class="preset-row"><button type="button" data-prevalence="1">1%</button><button type="button" data-prevalence="5" aria-pressed="true">5%</button><button type="button" data-prevalence="30">30%</button></div></div><div class="setting-row"><label for="fn-cost">공격 미탐(FN)의 상대 비용</label><select id="fn-cost"><option value="1">1배 (FP와 동일)</option><option value="3">3배</option><option value="5" selected>5배</option><option value="10">10배</option></select></div><div class="formula"><small>연구의 기대 비용 계산식</small><p>p × 미탐비용 × FNR + (1 − p) × 오탐비용 × FPR</p><small>FP 상대 비용은 1로 고정. 비율은 0~1로 변환해 계산합니다.</small></div></div>
+        <div class="panel cost-results"><div class="panel-head"><h3>가정별 기대 비용 비교</h3><span class="label-small">건당 상대 손실값</span></div><div class="cost-highlight"><span>이 가정에서 계산상 최소값</span><strong id="best-threshold">—</strong><p id="best-description">—</p></div><div id="cost-bars" class="cost-bars" aria-label="임계값별 가정 기대 비용 막대그래프"></div><p class="micro-note">계산상 가장 작은 값은 현재 가정에서만 유효하며 실제 운영 정책 권고가 아닙니다.</p></div></div>
+        <div class="footer-actions"><button type="button" class="btn ghost" id="export-report">현재 분석 요약 TXT 저장 ↓</button><span id="export-status" class="label-small" role="status"></span></div>
+      </section>
+      <footer class="footer"><div><div class="brand footer-brand"><span class="brand-symbol" aria-hidden="true">⌁</span> THRESHOLD<span class="brand-light">LAB</span></div><p>SKT ALEPH · T10 연구 결과 적용 / BR-B 앱 프로토타입 v0.1</p><p>논문: 「로그인 실패 횟수 임계값이 이상 접속 탐지 성능에 미치는 영향」 (2026-11-10)</p></div><div><p>연구 한계</p><ul><li>논문 집계 결과는 합성 데이터 연구에 한정</li><li>실제 인증 정책의 최적값·탐지율을 보장하지 않음</li><li>원시 연구 로그는 포함하지 않음</li><li>시뮬레이터 결과는 입력한 예시 로그에 한정</li></ul></div></footer>
+    </div>
+  </main>
+</body>
+</html>
