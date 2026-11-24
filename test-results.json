@@ -1,0 +1,54 @@
+{
+  "interactions": {
+    "threshold5": [
+      "5 회 이상",
+      "9.67%",
+      "29.00%"
+    ],
+    "stress": [
+      "true",
+      "27.33%"
+    ],
+    "demo": [
+      "정상 82건 · 제외 0건",
+      "12",
+      "9"
+    ],
+    "invalid": [
+      "정상 0건 · 제외 1건",
+      "입력 점검: 1개 행 제외\n1행: 4개 열(timestamp_utc,ip,result,label)이 필요합니다\n유효한 이벤트가 없어 탐지할 구간이 없습니다."
+    ],
+    "cost": [
+      "30%",
+      "4회"
+    ],
+    "download": "threshold-lab-summary.txt"
+  },
+  "desktop1920": {
+    "size": {
+      "width": 1920,
+      "viewport": 1920,
+      "accent": "#66acff",
+      "meta": "#081324"
+    },
+    "errors": []
+  },
+  "desktop1366": {
+    "size": {
+      "width": 1366,
+      "viewport": 1366,
+      "accent": "#66acff",
+      "meta": "#081324"
+    },
+    "errors": []
+  },
+  "mobile390": {
+    "size": {
+      "width": 390,
+      "viewport": 390,
+      "accent": "#66acff",
+      "meta": "#081324"
+    },
+    "errors": []
+  }
+}
