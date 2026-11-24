@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#071932" />
+  <meta name="theme-color" content="#071719" />
   <meta name="description" content="T10 연구 논문에 기반한 로그인 실패 임계값 실험실. 탐지 누락률, 오탐률, 비용 가정을 함께 비교합니다." />
   <title>Threshold Lab | 로그인 이상 탐지 실험실</title>
-  <link rel="stylesheet" href="./styles.css?v=0.5.0" />
+  <link rel="stylesheet" href="./styles.css?v=0.6.0" />
   <script type="module" src="./app.mjs"></script>
 </head>
 <body>
@@ -17,7 +17,7 @@
       <nav aria-label="주요 메뉴" class="navlinks">
         <a href="#research">연구 비교</a><a href="#simulator">탐지 실습</a><a href="#scenario">비용 분석</a>
       </nav>
-      <span class="top-status"><span class="status-light" aria-hidden="true"></span> RESEARCH · V0.5</span>
+      <span class="top-status"><span class="status-light" aria-hidden="true"></span> RESEARCH · V0.6</span>
     </div>
   </header>
   <main id="main">
@@ -37,7 +37,7 @@
             <div class="metric-foot">오탐 증가 허용폭 5%p를 초과하여 <b>연구 가설 미지지</b></div>
           </aside>
         </div>
-        <div class="research-citation"><span>기반 논문</span><strong>「로그인 실패 횟수 임계값이 이상 접속 탐지 성능에 미치는 영향」</strong><span class="citation-tag">합성 데이터 기반</span></div>
+        <div class="research-citation"><span>기반 논문</span><strong>「로그인 실패 횟수 임계값이 이상 접속 탐지 성능에 미치는 영향」</strong><span class="citation-tag">합성 데이터 기반</span><a class="paper-link" href="./research/T10_paper.pdf" target="_blank" rel="noopener noreferrer">최종 논문 PDF 열기 <span aria-hidden="true">↗</span></a></div>
       </section>
       <div class="steps" aria-label="사용 방법"><div><span>01</span><p><b>기준 선택</b><small>4~10회 탐지 성능 비교</small></p></div><div><span>02</span><p><b>로그 실습</b><small>예시 이벤트로 경보 판정</small></p></div><div><span>03</span><p><b>비용 분석</b><small>가정별 오탐·미탐 부담 비교</small></p></div></div>
       <section id="research" class="section-block" aria-labelledby="research-title">
@@ -67,7 +67,7 @@
         <div class="panel cost-results"><div class="panel-head"><h3>가정별 기대 비용 비교</h3><span class="label-small">건당 상대 손실값</span></div><div class="cost-highlight"><span>이 가정에서 계산상 최소값</span><strong id="best-threshold">—</strong><p id="best-description">—</p></div><div id="cost-bars" class="cost-bars" aria-label="임계값별 가정 기대 비용 막대그래프"></div><p class="micro-note">계산상 가장 작은 값은 현재 가정에서만 유효하며 실제 운영 정책 권고가 아닙니다.</p></div></div>
         <div class="footer-actions"><button type="button" class="btn ghost" id="export-report">현재 분석 요약 TXT 저장 ↓</button><span id="export-status" class="label-small" role="status"></span></div>
       </section>
-      <footer class="footer"><div><div class="brand footer-brand"><span class="brand-symbol" aria-hidden="true">⌁</span> THRESHOLD<span class="brand-light">LAB</span></div><p>SKT ALEPH · T10 연구 결과 적용 / BR-B 앱 프로토타입 v0.2</p><p>논문: 「로그인 실패 횟수 임계값이 이상 접속 탐지 성능에 미치는 영향」 (2026-11-10)</p></div><div><p>연구 한계</p><ul><li>논문 집계 결과는 합성 데이터 연구에 한정</li><li>실제 인증 정책의 최적값·탐지율을 보장하지 않음</li><li>원시 연구 로그는 포함하지 않음</li><li>시뮬레이터 결과는 입력한 예시 로그에 한정</li></ul></div></footer>
+      <footer class="footer"><div><div class="brand footer-brand"><span class="brand-symbol" aria-hidden="true">⌁</span> THRESHOLD<span class="brand-light">LAB</span></div><p>SKT ALEPH · T10 연구 결과 적용 / BR-B 연구 기반 앱 v0.6</p><p>논문: 「로그인 실패 횟수 임계값이 이상 접속 탐지 성능에 미치는 영향」 (2026-11-10)</p></div><div><p>연구 한계</p><ul><li>논문 집계 결과는 합성 데이터 연구에 한정</li><li>실제 인증 정책의 최적값·탐지율을 보장하지 않음</li><li>원시 연구 로그는 포함하지 않음</li><li>시뮬레이터 결과는 입력한 예시 로그에 한정</li></ul></div></footer>
     </div>
   </main>
 </body>
